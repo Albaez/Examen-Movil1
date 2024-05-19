@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Button, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -11,6 +12,7 @@ const ListaRecetaScreen = () => {
     const [recetas, setRecetas] = useState<Receta[]>([]);
     const [busqueda, setBusqueda] = useState('');
     const [recetasFiltradas, setRecetasFiltradas] = useState<Receta[]>([]);
+    const navigation = useNavigation();
 
     const handleEliminarReceta = (id: string) => {
         setRecetas(recetas.filter((receta) => receta.id !== id));
@@ -22,7 +24,8 @@ const ListaRecetaScreen = () => {
           receta.nombre.toLowerCase().includes(busqueda.toLowerCase())
         );
         setRecetasFiltradas(recetasFiltradas);
-      };
+
+    }
 
     const handleAgregarReceta = (receta: Receta) => {
         setRecetas([...recetas, receta]);
@@ -33,15 +36,7 @@ const ListaRecetaScreen = () => {
             <View style={styles.logoContainer}>
                 <Image source={require('../assets/icono.png')} style={styles.logo} />
             </View>
-            <View style={styles.busquedaContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Buscar recetas"
-                    value={busqueda}
-                    onChangeText={setBusqueda}
-                />
-                <Button title="Buscar" onPress={handleBuscarRecetas} />
-            </View>
+            
             <FlatList
                 data={recetasFiltradas.length > 0 ? recetasFiltradas : recetas}
                 keyExtractor={(receta) => receta.id}
@@ -58,6 +53,16 @@ const ListaRecetaScreen = () => {
                     </View>
                 )}
             />
+
+            <View style={styles.busquedaContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Buscar recetas"
+                    value={busqueda}
+                    onChangeText={setBusqueda}
+                />
+                <Button title="Buscar" onPress={handleBuscarRecetas} />
+            </View>
             <AgregarRecetaScreen onAgregarReceta={handleAgregarReceta} />
         </View>
     );
@@ -111,17 +116,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logoContainer: {
-        position: 'absolute',
+        position: 'relative',
         top: 0,
         left: 0,
         right: 0,
         alignItems: 'center',
     },
     logo: {
-        width: '50%',
+        width: '60%',
         height: undefined,
-        aspectRatio: 4,
-        marginBottom: 20,
+        aspectRatio: 1,
+        marginBottom: 30,
         alignSelf: 'center',
     },
     busquedaContainer: {

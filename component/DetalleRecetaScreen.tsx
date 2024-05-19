@@ -11,7 +11,7 @@ interface DetalleRecetaScreenProps {
     };
   };
   navigation: NavigationProp<any>;
-  onEliminarReceta: (id: string) => void; // Agrega esta prop
+  onEliminarReceta: (id: string) => void; 
 }
 
 const DetalleRecetaScreen = ({ route, navigation, onEliminarReceta }: DetalleRecetaScreenProps) => {
@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     width: '50%',
     height: undefined,
     aspectRatio: 4,
+    marginBottom:20,
+    alignSelf:'center',
   },
   label: {
     fontSize: 16,
